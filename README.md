@@ -26,6 +26,6 @@ If you have screen resolution other than 1920x1080 it is possible that some imag
 # Screenshot
 ![image](http://s24.postimg.org/w10ur3wxh/conky_flat.jpg)
 
-# Thanks to
+# Credit to
 [nale12](http://nale12.deviantart.com/)
 
