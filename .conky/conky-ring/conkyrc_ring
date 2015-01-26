@@ -1,0 +1,59 @@
+# -- Conky settings -- #
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+short_units yes
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+imlib_cache_size 0
+
+own_window_type normal
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+own_window yes
+own_window_transparent yes
+#own_window_argb_visual yes
+#own_window_title pie/ring-chart + text
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 300 352
+maximum_width 300
+alignment bl
+gap_x 140
+gap_y 240
+# -- Graphics settings -- #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+use_xft yes
+xftfont Roboto Medium:size=10
+xftalpha 0
+default_color 9FA8B5
+
+color1 AEB6C2
+color2 BDC6D2
+color3 566070
+
+# -- Lua load -- #
+lua_load ~/.conky/conky-ring/ring.lua 
+lua_draw_hook_pre ring_stats
+
+#at least one line (empty or not) after TEXT
+TEXT
+${image ~/.conky/conky-ring/Stats_Back.png -p 0,0}${goto 256}${voffset 22}${color1}${font SourceSansPro Regular :size=10}RAM
+${goto 220}${voffset 9}${color3}${font Roboto Medium :size=10}${memperc}%
+${goto 82}${voffset 15}${color3}${font Roboto Light :size=22}${cpu cpu0}%
+${goto 93}${voffset -23}${color1}${font SourceSansPro Regular :size=10}CPU${goto 256}${voffset 13}TEMP
+${goto 217}${voffset 7}${color3}${font Roboto Medium :size=10}${hwmon temp 1}°c
+${goto 20}${voffset 50}${color1}${font Roboto Medium :size=10}Top Process
+${color3}${goto 20}${voffset -6}${font Roboto Light :size=20}${top name 1}
+${goto 15}${voffset 10}${color1}${font SourceSansPro Regular :size=10}CPU Speed${goto 127}Upload${goto 217}Download
+${goto 19}${voffset 0}${color3}${font Open Sans :size=12}${freq_g}GHz${goto 128}${upspeed enp3s0}${goto 226}${downspeed enp3s0}

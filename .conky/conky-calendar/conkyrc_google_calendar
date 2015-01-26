@@ -1,0 +1,55 @@
+
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x 100
+gap_y 100
+minimum_size 220 300
+maximum_width 220
+own_window yes
+#own_window_argb_visual yes
+own_window_type normal
+own_window_class conky
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+alignment top_right
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf8_locale yes
+use_xft yes
+xftfont Roboto Medium:size=10
+xftalpha 0
+uppercase no
+draw_outline no
+draw_shades no
+default_shade_color 000000
+default_outline_color black
+default_color eeeeee
+color1 AEB6C2
+color2 9FA8B5
+color3 757F8E
+color4 566070
+
+lua_load ~/.conky/conky-calendar/calendar.lua
+lua_draw_hook_pre draw_fig
+
+
+TEXT
+${execi 600 curl -s "https://www.google.com/calendar/feeds/" -o ~/.cache/calendar.xml}${if_empty ${execi 600 grep "</summary><content" ~/.cache/calendar.xml | grep -oP "(?<=<content type='html'>).*?(?=$)" | grep -oP "(?<=: ).*?(?=$)" | grep -i $(date +%b)}}${image ~/.conky/conky-calendar/calback.png -p 0,0}$else${if_match ${execi 600 grep "</summary><content" ~/.cache/calendar.xml | grep -oP "(?<=<content type='html'>).*?(?=$)" | grep -oP "(?<=: ).*?(?=$)" | grep -i $(date +%b) | wc -l} > 6}${image ~/.conky/conky-calendar/calback4.png -p 0,0}$else${if_match ${execi 600 grep "</summary><content" ~/.cache/calendar.xml | grep -oP "(?<=<content type='html'>).*?(?=$)" | grep -oP "(?<=: ).*?(?=$)" | grep -i $(date +%b) | wc -l} > 4}${image ~/.conky/conky-calendar/calback3.png -p 0,0}$else${if_match ${execi 600 grep "</summary><content" ~/.cache/calendar.xml | grep -oP "(?<=<content type='html'>).*?(?=$)" | grep -oP "(?<=: ).*?(?=$)" | grep -i $(date +%b) | wc -l} > 2}${image ~/.conky/conky-calendar/calback2.png -p 0,0}$else${image ~/.conky/conky-calendar/calback1.png -p 0,0}$endif$endif$endif$endif${font Roboto Light :size=60}${voffset -8}${goto 10}${time %H}${goto 120}${time %M}
+${color4}${font Open Sans:size=10}$alignc${voffset -54}${time %B %Y}
+${if_empty ${execi 600 grep "</summary><content" ~/.cache/calendar.xml | grep -oP "(?<=<content type='html'>).*?(?=$)" | grep -oP "(?<=: ).*?(?=$)" | grep -i $(date +%b)}}$else${font Roboto Light :size=13}${voffset 158}${alignc}Google Calendar
+${font Open Sans :size=9}${voffset 13}${execpi 600 bash ~/.conky/conky-calendar/gcal.sh}$endif
