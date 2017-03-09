@@ -1,5 +1,5 @@
 # Flattastic-Conky
-Conky theme made for Flattastic GTK Theme
+Conky theme made for Flattastic GTK Theme.
 
 # Installation
 1. Install conky, bash, lua, curl, wget, python and python-feedparser packages.Ubuntu(and derivatives) users also have to install aptitude package.
